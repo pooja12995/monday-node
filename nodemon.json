@@ -1,0 +1,6 @@
+{
+    "env" : {
+        "MONGO_ATLAS_PW" : "Prits@50",
+        "JWT_KEY":"AykaTech"
+    }
+}
