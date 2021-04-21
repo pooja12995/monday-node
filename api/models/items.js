@@ -9,10 +9,7 @@ const itemSchema=mongoose.Schema({
     endDate:{type:String, 
         match:/((?=\d{4})\d{4}|(?=[a-zA-Z]{3,12})[a-zA-Z]{3,12}|\d{2})((?=\/)\/|\-)((?=[0-9]{2})[0-9]{2}|(?=[0-9]{1,2})[0-9]{1,2}|[a-zA-Z]{3,12})((?=\/)\/|\-)((?=[0-9]{4})[0-9]{4}|(?=[0-9]{2})[0-9]{2}|[a-zA-Z]{3,12})/,
         },
-    toemail:{type:String , 
-        required:true,
-        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-        },
+    toemail:{type:String,required:true},
     status:{type:String , require:true},
     teamImage:{type:String , require:true}
     

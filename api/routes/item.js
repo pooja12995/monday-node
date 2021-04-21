@@ -90,7 +90,7 @@ router.post('/',upload.single('teamImage'),checkAuth,(req,res,next)=>{
 
 router.get('/:fromemail',(req,res,next)=>{
     const email=req.params.fromemail;
-   Item.findOne({fromemail:email})
+   Item.find({fromemail:email})
    .select("itemName _id startDate endDate toemail fromemail status teamImage")
    .exec()
    .then(doc=>{
@@ -137,13 +137,13 @@ router.get('/:toemail',(req,res,next)=>{
    });
 });
 
-router.patch('/:fromemail',checkAuth,(req,res,next)=>{
-    const id=req.params.fromemail;
+router.patch('/:_id',(req,res,next)=>{
+    const id=req.params._id;
     const updateOps={};
     for(const ops of req.body){
         updateOps[ops.propName]=ops.value;
     }
-    Item.updateOne({fromemail:id},{$set:updateOps})
+    Item.updateOne({_id:id},{$set:updateOps})
     .exec()
     .then(doc=>{
         console.log(doc);
@@ -163,6 +163,55 @@ router.patch('/:fromemail',checkAuth,(req,res,next)=>{
     
 });
 
+router.put('/:_id',(req,res,next)=>{
+    const id=req.params._id;
+    const updateOps={};
+    for(const ops of req.body){
+        updateOps[ops.propName]=ops.value;
+    }
+    Item.updateOne({_id:id},{$set:updateOps})
+    .exec()
+    .then(doc=>{
+        console.log(doc);
+        if(doc.length>=1){
+            res.status(200).json({message:'Recored updated successfull !'});
+        }
+        else{
+            res.status(404).json({
+                message:'No recored found to update !'
+            });
+        }
+    })
+    .catch(err=>{
+      console.log(err);
+      res.status(500).json({error:err});
+    });
+    
+});
+
+router.delete('/:',(req,res,next)=>{
+    const eid=req.params.itemId;
+    Item.remove({_id:eid})
+    .exec()
+    .then(doc=>{
+        console.log(doc);
+        if(doc){
+            res.status(200).json({
+                message: 'Product has been Deleted ! :)'
+              });
+        }
+        else{
+            res.status(404).json({
+                message: 'No such product Found !'
+              });
+        }
+    })
+    .catch(err=>{
+      console.log(err);
+      res.status(500).json({error:err});
+    });
+   
+});
 
 router.delete('/:itemId',(req,res,next)=>{
     const eid=req.params.itemId;
