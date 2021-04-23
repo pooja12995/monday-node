@@ -8,6 +8,7 @@ const productRoutes=require('./api/routes/products');
 const orderRoutes=require('./api/routes/orders');
 const userRoutes=require('./api/routes/user');
 const itemRoutes=require('./api/routes/item');
+const chatRoutes=require('./api/routes/chat');
 
 mongoose.connect(
     "mongodb+srv://Pritee:"
@@ -44,6 +45,7 @@ app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
 app.use('/user',userRoutes);
 app.use('/item',itemRoutes);
+app.use('/chat',chatRoutes);
 //error handling 
 
 app.use((req,res,next)=>{

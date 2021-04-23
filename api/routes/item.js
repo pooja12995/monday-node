@@ -6,6 +6,7 @@ const router=express.Router();
 const checkAuth=require('../middleware/check-auth');
 //import multer for file upload
 const multer=require('multer');
+const { find } = require('../models/items');
 //some extra changes in file upload
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
@@ -94,11 +95,9 @@ router.get('/:fromemail',(req,res,next)=>{
    .select("itemName _id startDate endDate toemail fromemail status teamImage")
    .exec()
    .then(doc=>{
-       console.log('From database',doc);
+       console.log('get from email');
        if(doc){
-           res.status(200).json({
-               product:doc
-                 });
+           res.status(200).json(doc);
        }
        else{
            res.status(404).json({
@@ -113,13 +112,13 @@ router.get('/:fromemail',(req,res,next)=>{
 });
 
 
-router.get('/:toemail',(req,res,next)=>{
+router.get('/:toemail/:_id/:_id',(req,res,next)=>{
     const email=req.params.toemail;
    Item.findOne({toemail:email})
    .select("itemName _id startDate endDate toemail fromemail status teamImage")
    .exec()
    .then(doc=>{
-       console.log('From database',doc);
+       console.log('checking if to email works !',doc);
        if(doc){
            res.status(200).json({
                product:doc
@@ -136,6 +135,27 @@ router.get('/:toemail',(req,res,next)=>{
        res.status(500).json({error:err});
    });
 });
+
+
+router.get('/:status/:fromemail',(req,res,next)=>{
+   const stat=req.params.status;
+   const email=req.params.fromemail;
+   Item.find({status:stat ,fromemail:email})
+   .exec()
+   .then(doc=>{
+       if(doc.length>=1){
+        res.status(200).json(doc);
+       }
+       else{
+           res.status(404).json({message:'Not found !'});
+       }
+   }).
+   catch(err=>{
+       res.status(500).json({error:err});
+   });
+});
+
+
 
 router.patch('/:_id',(req,res,next)=>{
     const id=req.params._id;
