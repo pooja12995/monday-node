@@ -58,4 +58,28 @@ router.post('/',(req,res,next)=>{
     });  
 });
 
+router.delete('/:chatId',(req,res,next)=>{
+    const id=req.params.chatId;
+    Chat.remove({_id:id})
+    .exec()
+    .then(doc=>{
+        console.log(doc);
+        if(doc){
+            res.status(200).json({
+                message: 'Chat has been Deleted ! :)'
+              });
+        }
+        else{
+            res.status(404).json({
+                message: 'Not Found !'
+              });
+        }
+    })
+    .catch(err=>{
+      console.log(err);
+      res.status(500).json({error:err});
+    });
+   
+});
+
 module.exports=router;

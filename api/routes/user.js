@@ -44,7 +44,7 @@ router.get('/', (req,res,next)=>{
         // which will allow nly specific fields
         const response={
             count:doc.length,
-            products:doc.map(doc=>{
+            Users:doc.map(doc=>{
                 return{
                     name:doc.name,
                     email:doc.email,
