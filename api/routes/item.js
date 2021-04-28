@@ -91,7 +91,7 @@ router.post('/',upload.single('teamImage'),checkAuth,(req,res,next)=>{
 
 router.get('/:fromemail',(req,res,next)=>{
     const email=req.params.fromemail;
-   Item.find({fromemail:email})
+   Item.find({$or: [{fromemail: email},{toemail: email}]})
    .select("itemName _id startDate endDate toemail fromemail status teamImage")
    .exec()
    .then(doc=>{
@@ -140,7 +140,7 @@ router.get('/:toemail/:_id/:_id',(req,res,next)=>{
 router.get('/:status/:fromemail',(req,res,next)=>{
    const stat=req.params.status;
    const email=req.params.fromemail;
-   Item.find({status:stat ,fromemail:email})
+   Item.find({status:stat ,$or: [{fromemail: email},{toemail: email}]})
    .exec()
    .then(doc=>{
        if(doc.length>=1){
