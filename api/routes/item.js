@@ -176,30 +176,17 @@ router.patch('/:_id',async(req,res,next)=>{
     .exec()
     .then(doc=>{
         console.log(doc);
-<<<<<<< HEAD
          if(doc.length>=1){
 
             res.status(200).json({message:'Recored updated successfull !'});
 
          }
          else {
-=======
-        if(doc.length>1){
-            res.status(200).json({message:'Recored updated successfull !'});
-        }
-        else if(doc.length>=1){
->>>>>>> 9bd4b6962c49dd8fc569291a11a8ccd7b508b49b
             res.status(404).json({
                 message:'No recored found to update !'
             });
         }
-<<<<<<< HEAD
         
-=======
-        else{
-            console.log(doc);
-        }
->>>>>>> 9bd4b6962c49dd8fc569291a11a8ccd7b508b49b
     })
     .catch(err=>{
       console.log(err);
