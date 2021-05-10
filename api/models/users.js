@@ -10,7 +10,11 @@ const userSchema=mongoose.Schema({
     password:{type:String , 
         required:true,},
     dept:{type:String , required:true},
-    userprofile:{type:String}
+    userprofile:{type:String},
+    resetLink:{
+        data:String,
+        default:''
+    }
 });
 
 module.exports=mongoose.model('User',userSchema);

@@ -1,6 +1,9 @@
 {
     "env" : {
         "MONGO_ATLAS_PW" : "Prits@50",
-        "JWT_KEY":"AykaTech"
+        "JWT_KEY":"AykaTech",
+        "JWT_KEY_Rest_Link":"AykaTech12",
+        "CLIENT_URL":"http://localhost:4200",
+        "MAILGUN_API":"6e81b68085e36b1fee698e7272a771c3-4b1aa784-0f91cbcc"
     }
 }

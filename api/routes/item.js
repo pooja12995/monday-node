@@ -57,7 +57,7 @@ router.get('/', (req,res,next)=>{
     })
   });
 
-router.post('/',upload.single('teamImage'),checkAuth,(req,res,next)=>{
+router.post('/',(req,res,next)=>{
     //can see file details 
     //console.log(req.file);
     //create instance of the Product model
@@ -70,7 +70,7 @@ router.post('/',upload.single('teamImage'),checkAuth,(req,res,next)=>{
         endDate:req.body.endDate,
         toemail:req.body.toemail,
         status:req.body.status,
-        teamImage:req.file.path
+        teamImage:req.body.teamImage
     });
     //save will store data in db check result and catch
     item
@@ -157,30 +157,41 @@ router.get('/:status/:fromemail',(req,res,next)=>{
 
 
 
-router.patch('/:_id',(req,res,next)=>{
+router.patch('/:_id',async(req,res,next)=>{
     const id=req.params._id;
-    const updateOps={};
-    for(const ops of req.body){
-        updateOps[ops.propName]=ops.value;
-    }
+    const updateOps=req.body;
+    // const fromemail=req.body.fromemail;
+    // const itemName=req.body.itemName;
+    // const startDate=req.body.startDate;
+    // const endDate=req.body.endDate;
+    // const toemail=req.body.toemail;
+    // const status=req.body.status;
+    // const teamImage=req.body.teamImage;
+    //const updateOps={$set:{fromemail:fromemail,itemName:itemName,startDate:startDate,endDate:endDate,toemail:toemail,status:status,teamImage:teamImage}};
+    //   for(const ops of req.body){
+    //      updateOps[ops.propName]=ops.value;
+    //  }
+    
     Item.updateOne({_id:id},{$set:updateOps})
     .exec()
     .then(doc=>{
         console.log(doc);
-        if(doc.length>=1){
+         if(doc.length>=1){
+
             res.status(200).json({message:'Recored updated successfull !'});
-        }
-        else{
+
+         }
+         else {
             res.status(404).json({
                 message:'No recored found to update !'
             });
         }
+        
     })
     .catch(err=>{
       console.log(err);
       res.status(500).json({error:err});
-    });
-    
+    });  
 });
 
 router.put('/:_id',(req,res,next)=>{
@@ -189,8 +200,9 @@ router.put('/:_id',(req,res,next)=>{
     for(const ops of req.body){
         updateOps[ops.propName]=ops.value;
     }
+    console.log(updateOps);
+
     Item.updateOne({_id:id},{$set:updateOps})
-    .exec()
     .then(doc=>{
         console.log(doc);
         if(doc.length>=1){

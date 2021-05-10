@@ -26,6 +26,7 @@ app.use('/uploads',express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+
 // course error handling
 app.use((req,res,next)=>{
     //* can be replaced by our site url like https://monday.com
@@ -40,7 +41,6 @@ app.use((req,res,next)=>{
    }
    next();
 });
-
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
 app.use('/user',userRoutes);
