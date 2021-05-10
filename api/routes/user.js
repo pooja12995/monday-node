@@ -124,7 +124,6 @@ router.post('/signup', upload.single('userprofile'), (req, res, next) => {
         });
 });
 
-
 router.post('/login', (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
@@ -134,7 +133,6 @@ router.post('/login', (req, res, next) => {
                     message: 'Authentication Failed'
                 });
             }
-<<<<<<< HEAD
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                 if (err) {
                     return res.status(401).json({
@@ -157,21 +155,6 @@ router.post('/login', (req, res, next) => {
                 }
                 res.status(401).json({
                     message: 'Auth Failed'
-=======
-            if(result)
-            {
-                const token=jwt.sign({
-                    email:user[0].email,
-                    userId:user[0]._id
-                },
-                process.env.JWT_KEY,
-                {
-                    expiresIn:"1h"
-                });
-                return res.status(200).json({
-                    // message:'Sucessfully Logged In!',
-                    token:token
->>>>>>> 9bd4b6962c49dd8fc569291a11a8ccd7b508b49b
                 });
             });
         })
