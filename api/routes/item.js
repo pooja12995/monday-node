@@ -167,13 +167,16 @@ router.patch('/:_id',(req,res,next)=>{
     .exec()
     .then(doc=>{
         console.log(doc);
-        if(doc.length>=1){
+        if(doc.length>1){
             res.status(200).json({message:'Recored updated successfull !'});
         }
-        else{
+        else if(doc.length>=1){
             res.status(404).json({
                 message:'No recored found to update !'
             });
+        }
+        else{
+            console.log(doc);
         }
     })
     .catch(err=>{
