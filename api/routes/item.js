@@ -91,7 +91,7 @@ router.post('/',(req,res,next)=>{
 
 router.get('/:fromemail',(req,res,next)=>{
     const email=req.params.fromemail;
-   Item.find({fromemail:email})
+   Item.find({$or: [{fromemail: email},{toemail: email}]})
    .select("itemName _id startDate endDate toemail fromemail status teamImage")
    .exec()
    .then(doc=>{
@@ -140,7 +140,7 @@ router.get('/:toemail/:_id/:_id',(req,res,next)=>{
 router.get('/:status/:fromemail',(req,res,next)=>{
    const stat=req.params.status;
    const email=req.params.fromemail;
-   Item.find({status:stat ,fromemail:email})
+   Item.find({status:stat ,$or: [{fromemail: email},{toemail: email}]})
    .exec()
    .then(doc=>{
        if(doc.length>=1){
@@ -176,17 +176,30 @@ router.patch('/:_id',async(req,res,next)=>{
     .exec()
     .then(doc=>{
         console.log(doc);
+<<<<<<< HEAD
          if(doc.length>=1){
 
             res.status(200).json({message:'Recored updated successfull !'});
 
          }
          else {
+=======
+        if(doc.length>1){
+            res.status(200).json({message:'Recored updated successfull !'});
+        }
+        else if(doc.length>=1){
+>>>>>>> 9bd4b6962c49dd8fc569291a11a8ccd7b508b49b
             res.status(404).json({
                 message:'No recored found to update !'
             });
         }
+<<<<<<< HEAD
         
+=======
+        else{
+            console.log(doc);
+        }
+>>>>>>> 9bd4b6962c49dd8fc569291a11a8ccd7b508b49b
     })
     .catch(err=>{
       console.log(err);

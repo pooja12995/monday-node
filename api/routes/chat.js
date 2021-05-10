@@ -5,6 +5,8 @@ const mongoose=require('mongoose');
 const router=express.Router();
 const checkAuth=require('../middleware/check-auth');
 
+//you have taken latest pull
+
 router.get('/:toemail',(req,res,next)=>{
     const email=req.params.toemail;
    Chat.find({toemail:email})
