@@ -206,7 +206,7 @@ router.put('/:_id',(req,res,next)=>{
     .then(doc=>{
         console.log(doc);
         if(doc.length>=1){
-            res.status(200).json({message:'Recored updated successfull !'});
+            res.status(200).json({message:'Recored updated successfull!'});
         }
         else{
             res.status(404).json({

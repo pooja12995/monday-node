@@ -54,7 +54,7 @@ router.get('/', (req, res, next) => {
                         name: doc.name,
                         email: doc.email,
                         _id: doc._id,
-                        userprofile: doc.userprofile,
+                        userprofile:`http://localhost:3000/${doc.userprofile}`,
                         dept: doc.dept,
                         request: {
                             //can give any type and url whichever we want to execute after clicking on it (metadat)
@@ -79,6 +79,33 @@ router.get('/', (req, res, next) => {
         })
 });
 
+router.get('/:email',(req,res,next)=>{
+    const email=req.params.email;
+    User.find({ email: email})
+    .select("userprofile")
+    .exec()
+    .then(doc=>{
+        
+        const response = {
+            Users: doc.map(doc => {
+                return {
+                    userprofile: doc.userprofile,
+                    profile_url:`http://localhost:3000/${doc.userprofile}`
+                }
+            })
+        };
+        // if(doc.length>0){
+        res.status(200).json(response);
+    //}
+       // else{
+          //  res.status(404).json({message:'Not found !'});
+        //}
+    }).
+    catch(err=>{
+        res.status(500).json({error:err});
+    });
+ });
+ 
 router.post('/signup', upload.single('userprofile'), (req, res, next) => {
         User.find({ email: req.body.email })
         .exec()
