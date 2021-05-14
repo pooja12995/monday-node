@@ -10,10 +10,11 @@ const userRoutes=require('./api/routes/user');
 const itemRoutes=require('./api/routes/item');
 const chatRoutes=require('./api/routes/chat');
 
+
 mongoose.connect(
-    "mongodb+srv://Pritee:"
+    "mongodb+srv://devthorat:"
     +process.env.MONGO_ATLAS_PW+
-    "@monday.9bht6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {useNewUrlParser: true});
+    "@workspace.nen3u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{useNewUrlParser: true});
 
     const connection = mongoose.connection;
 
@@ -25,7 +26,6 @@ app.use(morgan('dev'));
 app.use('/uploads',express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
 
 // course error handling
 app.use((req,res,next)=>{

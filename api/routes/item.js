@@ -122,7 +122,7 @@ router.get('/:toemail/:_id/:_id',(req,res,next)=>{
        if(doc){
            res.status(200).json({
                product:doc
-                 });
+          });
        }
        else{
            res.status(404).json({
@@ -135,7 +135,6 @@ router.get('/:toemail/:_id/:_id',(req,res,next)=>{
        res.status(500).json({error:err});
    });
 });
-
 
 router.get('/:status/:fromemail',(req,res,next)=>{
    const stat=req.params.status;
