@@ -9,6 +9,7 @@ const orderRoutes=require('./api/routes/orders');
 const userRoutes=require('./api/routes/user');
 const itemRoutes=require('./api/routes/item');
 const chatRoutes=require('./api/routes/chat');
+const eventRoutes=require('./api/routes/event');
 
 
 mongoose.connect(
@@ -46,6 +47,7 @@ app.use('/orders',orderRoutes);
 app.use('/user',userRoutes);
 app.use('/item',itemRoutes);
 app.use('/chat',chatRoutes);
+app.use('/event',eventRoutes);
 //error handling 
 
 app.use((req,res,next)=>{
