@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A node js restful api",
   "main": "index.js",
+  "engines": {
+    "node": "6.14.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
